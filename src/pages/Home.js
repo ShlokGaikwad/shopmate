@@ -1,9 +1,9 @@
 import React from "react";
 import ProductCard from "./../components/ProductCard";
-import useTitle from "../hooks/useTitle";
+// import useTitle from "../hooks/useTitle";
 
 const Home = () => {
-  useTitle("Home");
+  // useTitle("Home");
   const products = [
     {
       id: 1,
