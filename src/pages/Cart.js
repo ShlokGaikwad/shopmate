@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 // import useTitle from "../hooks/useTitle";
 import CartCard from "./../components/CartCard";
+import { useCart } from "../context/CartContext";
 
 const Cart = () => {
   // useTitle("Cart");
+  const { total } = useCart();
   const products = [
     {
       id: 1,
@@ -21,7 +23,9 @@ const Cart = () => {
   return (
     <main>
       <section className="cart">
-        <h1>Cart Items: {products.length}</h1>
+        <h1>
+          Cart Items: {products.length} /Total: {total}$
+        </h1>
         {products.map((product) => {
           return <CartCard key={product.id} product={product} />;
         })}
