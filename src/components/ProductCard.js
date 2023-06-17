@@ -1,12 +1,21 @@
-import React from "react";
-import {useCart} from '../context/CartContext';
-import './ProductCard.css'
+import React, { useEffect, useState } from "react";
+import { useCart } from "../context/CartContext";
+import "./ProductCard.css";
 
-const ProductCard = ({product}) => {
-  const {addToCart,cartList}=useCart();
-  const{name,price,image}=product;
+const ProductCard = ({ product }) => {
+  const { removeFromCart, addToCart, cartList } = useCart();
+  const { id, name, price, image } = product;
 
+  const [isInCart, setIsInCart] = useState(false);
 
+  useEffect(() => {
+    const productIsInCart = cartList.find((cartItem) => cartItem.id === id);
+    if (productIsInCart) {
+      setIsInCart(true);
+    } else {
+      setIsInCart(false);
+    }
+  }, [cartList, id]);
 
   return (
     <div className="productCard">
@@ -14,8 +23,13 @@ const ProductCard = ({product}) => {
       <p className="name">{name}</p>
       <div className="action">
         <p>{price}$</p>
-        <button onClick={()=>addToCart(product)}>Add To Cart</button>
-        <button className="remove">Remove</button>
+        {isInCart ? (
+          <button className="remove" onClick={() => removeFromCart(product)}>
+            Remove
+          </button>
+        ) : (
+          <button onClick={() => addToCart(product)}>Add To Cart</button>
+        )}
       </div>
     </div>
   );
